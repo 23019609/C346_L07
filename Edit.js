@@ -38,8 +38,10 @@ function Edit({ navigation, route }) {
                             if (route.params.type === "Income") {
                                 indexnum = 0;
                             }
-                            datasource[indexnum].data[route.params.index].key = name
-                            datasource[indexnum].data[route.params.index].amt = amt
+                            datasource[indexnum].data[route.params.index].key =
+                                name;
+                            datasource[indexnum].data[route.params.index].amt =
+                                amt;
                             navigation.navigate("Home");
                         }}
                     />

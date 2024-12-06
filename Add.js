@@ -5,7 +5,7 @@ import { datasource } from "./Data.js";
 
 function Add({ navigation }) {
     const [name, setName] = useState("");
-    const [amt , setAmt] = useState("");
+    const [amt, setAmt] = useState("");
     const [type, setType] = useState("");
 
     return (

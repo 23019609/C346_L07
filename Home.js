@@ -56,7 +56,8 @@ const Home = ({ navigation }) => {
                 }
             >
                 <Text style={styles.textStyle}>
-                    {item.key} - ${parseFloat(item.amt).toFixed(2)} <Icon name={section.icon} size={17} color={section.color} />
+                    {item.key} - ${parseFloat(item.amt).toFixed(2)}{" "}
+                    <Icon name={section.icon} size={17} color={section.color} />
                 </Text>
             </TouchableOpacity>
         );
@@ -85,14 +86,20 @@ const Home = ({ navigation }) => {
                 />
             </View>
 
-            <View style={{ marginTop: 20, flexDirection: "row", justifyContent: "space-between" }}>
-                <View style={{flex: 1, margin: 10}}>
+            <View
+                style={{
+                    marginTop: 20,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                }}
+            >
+                <View style={{ flex: 1, margin: 10 }}>
                     <Button
                         title="Add Amount"
                         onPress={() => navigation.navigate("Add")}
                     />
                 </View>
-                <View style={{flex: 1, margin: 10}}>
+                <View style={{ flex: 1, margin: 10 }}>
                     <Button
                         title="Total Amount"
                         onPress={() => {
@@ -103,13 +110,21 @@ const Home = ({ navigation }) => {
                                 let section = datasource[i];
 
                                 if (section.type === "Income") {
-                                    for (let i = 0; i < section.data.length; i++) {
+                                    for (
+                                        let i = 0;
+                                        i < section.data.length;
+                                        i++
+                                    ) {
                                         totalIncome += parseFloat(
                                             section.data[i].amt,
                                         );
                                     }
                                 } else if (section.type === "Expense") {
-                                    for (let i = 0; i < section.data.length; i++) {
+                                    for (
+                                        let i = 0;
+                                        i < section.data.length;
+                                        i++
+                                    ) {
                                         totalExpense += parseFloat(
                                             section.data[i].amt,
                                         );
@@ -145,7 +160,7 @@ const Home = ({ navigation }) => {
                             let msg =
                                 "Total Income: $" +
                                 totalIncome.toFixed(2) +
-                                "\nTotal Expenses: $" +
+                                "\nTotal Expense: $" +
                                 totalExpense.toFixed(2) +
                                 "\nYou have a " +
                                 (totalAmount > 0 ? "surplus" : "deficit") +
