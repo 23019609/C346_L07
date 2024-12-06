@@ -7,44 +7,80 @@ import {
     StatusBar,
     SectionList,
     Button,
-    Image,
     Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {
+    useFonts,
+    ArbutusSlab_400Regular,
+} from "@expo-google-fonts/arbutus-slab";
+import { Poppins_600SemiBold } from "@expo-google-fonts/poppins";
 import { datasource } from "./Data.js";
 
 const styles = StyleSheet.create({
     opacityStyle: {
-        borderLeftWidth: 5,
+        display: "flex",
+        flexDirection: "row",
         backgroundColor: "#c8d3f566",
-        marginBottom: 5,
+        marginBottom: 15,
+        borderRadius: 10,
+        borderLeftWidth: 8,
+        paddingLeft: 10,
+        paddingRight: 10,
+        justifyContent: "center",
+        alignItems: "center",
     },
     textStyle: {
+        flex: 1,
+        padding: 10,
         textAlign: "center",
-        verticalAlign: "center",
-        justifyContent: "center",
-        fontWeight: "bold",
         fontSize: 15,
-        margin: 10,
+        fontFamily: "Poppins",
+        marginLeft: -15,
+        // fontWeight: "bold",
+    },
+    iconContainer: {
+        flex: 1,
+        textAlign: "left",
     },
     headerText: {
-        borderBottomWidth: 1,
-        borderStyle: "dashed",
-        fontSize: 25,
-        textAlign: "center",
-        fontWeight: "bold",
-        fontVariant: "small-caps",
+        marginTop: 10,
         marginBottom: 30,
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: "#23395d",
+        borderStyle: "dashed",
+        textAlign: "center",
+        color: "#23395d",
+        fontSize: 22,
+        fontFamily: "Arbutus_Slab",
+    },
+    buttonBackground: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: 170,
+        height: 40,
+        borderRadius: 25,
+        elevation: 2,
+    },
+    buttonText: {
+        fontSize: 14,
+        fontWeight: "bold",
     },
 });
 
 const Home = ({ navigation }) => {
+    useFonts({
+        Arbutus_Slab: ArbutusSlab_400Regular,
+        Poppins: Poppins_600SemiBold,
+    });
+
     const renderItem = ({ item, index, section }) => {
         return (
             <TouchableOpacity
                 style={[
                     styles.opacityStyle,
-                    { borderLeftColor: section.color },
+                    { borderLeftColor: section.bgColor },
                 ]}
                 onPress={() =>
                     navigation.navigate("Edit", {
@@ -55,16 +91,35 @@ const Home = ({ navigation }) => {
                     })
                 }
             >
+                <View styles={styles.iconContainer}>
+                    <Icon name={section.icon} size={20} color={section.color} />
+                </View>
                 <Text style={styles.textStyle}>
-                    {item.key} - ${parseFloat(item.amt).toFixed(2)}{" "}
-                    <Icon name={section.icon} size={17} color={section.color} />
+                    {item.key} - ${parseFloat(item.amt).toFixed(2)}
                 </Text>
             </TouchableOpacity>
         );
     };
 
+    // reference: https://docs.expo.dev/ui-programming/react-native-styling-buttons/
+    function CustomButton({ btnBackground, handlePress, btnText }) {
+        return (
+            <TouchableOpacity
+                style={[
+                    styles.buttonBackground,
+                    { backgroundColor: btnBackground },
+                ]}
+                onPress={handlePress}
+            >
+                <Text style={[styles.buttonText, { color: "#4a4a4ae6" }]}>
+                    {btnText}
+                </Text>
+            </TouchableOpacity>
+        );
+    }
+
     return (
-        <View style={{ margin: 20, marginBottom: 125 }}>
+        <View style={{ margin: 20 }}>
             <StatusBar />
             <Text style={styles.headerText}>Income and Expense Manager</Text>
             <View>
@@ -94,15 +149,17 @@ const Home = ({ navigation }) => {
                 }}
             >
                 <View style={{ flex: 1, margin: 10 }}>
-                    <Button
-                        title="Add Amount"
-                        onPress={() => navigation.navigate("Add")}
+                    <CustomButton
+                        btnText="ADD AMOUNT"
+                        btnBackground="#c1e1c1"
+                        handlePress={() => navigation.navigate("Add")}
                     />
                 </View>
                 <View style={{ flex: 1, margin: 10 }}>
-                    <Button
-                        title="Total Amount"
-                        onPress={() => {
+                    <CustomButton
+                        btnText="TOTAL AMOUNT"
+                        btnBackground="#c8b3e1"
+                        handlePress={() => {
                             let totalIncome = 0;
                             let totalExpense = 0;
 
@@ -167,6 +224,7 @@ const Home = ({ navigation }) => {
                                 " of $" +
                                 Math.abs(totalAmount).toFixed(2);
 
+                            // idk how style this without using modal or smth
                             Alert.alert("", msg, [
                                 {
                                     text: "Ok",

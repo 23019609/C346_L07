@@ -5,9 +5,9 @@ const datasource = [
             { key: "Commission", amt: "100" },
         ],
         type: "Income",
-        bgColor: "#7df8d5cc",
+        bgColor: "#7dacf8cc",
         icon: "trending-up",
-        color: "#249b96",
+        color: "#6e99de",
     },
     {
         data: [
@@ -17,7 +17,7 @@ const datasource = [
         type: "Expense",
         bgColor: "#f87d7dcc",
         icon: "trending-down",
-        color: "#f43838",
+        color: "#d96a6a",
     },
 ];
 
